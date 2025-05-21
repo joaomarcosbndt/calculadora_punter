@@ -17,18 +17,20 @@
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #e3f2fd, #bbdefb);
       padding: 40px 20px;
-      max-width: 800px;
+      max-width: 900px; /* Aumentado para melhor uso do espaço */
       margin: auto;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased; /* Melhora a renderização de fontes */
+      -moz-osx-font-smoothing: grayscale;
     }
 
     h2 {
       margin: 30px 0 20px;
       color: #1a3c5e;
       font-weight: 600;
-      font-size: 1.8rem;
+      font-size: 2rem; /* Aumentado para melhor legibilidade */
       position: relative;
-      padding-bottom: 10px;
+      padding-bottom: 12px;
     }
 
     h2::after {
@@ -37,7 +39,7 @@
       bottom: 0;
       left: 0;
       width: 60px;
-      height: 3px;
+      height: 4px; /* Aumentado para maior destaque */
       background: linear-gradient(to right, #1e88e5, #64b5f6);
       border-radius: 2px;
     }
@@ -45,7 +47,7 @@
     .group {
       display: flex;
       gap: 20px;
-      margin-top: 15px;
+      margin-top: 20px;
       flex-wrap: wrap;
     }
 
@@ -53,22 +55,22 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      min-width: 120px;
+      min-width: 140px; /* Aumentado para caixas maiores */
     }
 
     label {
-      font-size: 0.9rem;
-      margin-bottom: 6px;
+      font-size: 1rem; /* Aumentado para maior legibilidade */
+      margin-bottom: 8px;
       color: #2c4a6b;
       font-weight: 500;
       user-select: none;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     label i {
-      font-size: 1.1rem;
+      font-size: 1.2rem; /* Aumentado para ícones mais visíveis */
       color: #1e88e5;
       transition: color 0.3s ease;
     }
@@ -82,18 +84,19 @@
     }
 
     input[type="text"] {
-      sobretudo: 10px;
-      font-size: 1.3rem;
+      padding: 12px; /* Aumentado para caixas maiores */
+      font-size: 1.4rem; /* Aumentado para maior legibilidade */
       border: none;
-      border-radius: 8px;
+      border-radius: 10px; /* Bordas mais suaves */
       text-align: center;
       background-color: #ffffff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
+      height: 48px; /* Altura fixa para consistência */
     }
 
     input[type="text"]:focus {
-      box-shadow: 0 0 8px rgba(30, 136, 229, 0.5);
+      box-shadow: 0 0 10px rgba(30, 136, 229, 0.5);
       background-color: #e3f2fd;
       outline: none;
     }
@@ -125,17 +128,17 @@
     .odds-justas-pares {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      margin-top: 15px;
+      gap: 20px;
+      margin-top: 20px;
       background: #ffffff;
-      padding: 20px;
-      border-radius: 12px;
+      padding: 25px; /* Aumentado para mais espaço interno */
+      border-radius: 14px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     .linha {
       display: flex;
-      gap: 15px;
+      gap: 20px;
       flex-wrap: wrap;
     }
 
@@ -143,12 +146,12 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      min-width: 150px;
+      min-width: 180px; /* Aumentado para caixas maiores */
     }
 
     .input-com-botao {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
     }
 
@@ -157,10 +160,10 @@
     }
 
     .btn-azul, .btn-vermelho {
-      padding: 8px 14px;
+      padding: 10px 16px; /* Aumentado para botões maiores */
       border: none;
-      border-radius: 6px;
-      font-size: 0.9rem;
+      border-radius: 8px;
+      font-size: 1rem; /* Aumentado para maior legibilidade */
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -191,27 +194,58 @@
 
     @media (max-width: 600px) {
       body {
-        padding: 20px 10px;
+        padding: 20px 12px;
       }
 
       h2 {
-        font-size: 1.5rem;
+        font-size: 1.7rem; /* Ajustado para telas menores */
       }
 
       .group, .linha {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
       }
 
       .input-box, .campo-com-botao {
         min-width: 100%;
+      }
+
+      input[type="text"] {
+        font-size: 1.2rem; /* Ajustado para melhor legibilidade em mobile */
+        height: 44px; /* Altura ajustada para mobile */
+      }
+
+      .btn-azul, .btn-vermelho {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+      }
+
+      .odds-justas-pares {
+        padding: 15px; /* Reduzido para melhor ajuste em mobile */
+      }
+    }
+
+    @media (max-width: 400px) {
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      input[type="text"] {
+        font-size: 1.1rem;
+        padding: 10px;
+        height: 40px;
+      }
+
+      .btn-azul, .btn-vermelho {
+        font-size: 0.85rem;
+        padding: 7px 10px;
       }
     }
   </style>
 </head>
 <body>
   <h2>Bolsa de Apostas</h2>
-  <div class="group" style="max-width: 200px;">
+  <div class="group" style="max-width: 250px;"> <!-- Aumentado para maior consistência -->
     <div class="input-box">
       <label for="bolsa-odd">ODD</label>
       <input id="bolsa-odd" type="text" />
