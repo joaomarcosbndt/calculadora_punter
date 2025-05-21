@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pinnacle Odds</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: auto;
+      min-height: 100vh;
+    }
+
+    h2 {
+      margin: 30px 0 20px;
+      color: #1a3c5e;
+      font-weight: 600;
+      font-size: 1.8rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, #1e88e5, #64b5f6);
+      border-radius: 2px;
+    }
+
+    .group {
+      display: flex;
+      gap: 20px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .input-box {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 120px;
+    }
+
+    label {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #2c4a6b;
+      font-weight: 500;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    label i {
+      font-size: 1.1rem;
+      color: #1e88e5;
+      transition: color 0.3s ease;
+    }
+
+    label:hover i {
+      color: #1565c0;
+    }
+
+    label::before {
+      content: none;
+    }
+
+    input[type="text"] {
+      sobretudo: 10px;
+      font-size: 1.3rem;
+      border: none;
+      border-radius: 8px;
+      text-align: center;
+      background-color: #ffffff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: 0 0 8px rgba(30, 136, 229, 0.5);
+      background-color: #e3f2fd;
+      outline: none;
+    }
+
+    input[readonly] {
+      background-color: #eceff1;
+      color: #455a64;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    input[readonly]:focus {
+      background-color: #eceff1;
+      box-shadow: none;
+    }
+
+    .percent-amarelo {
+      background-color: #fff9c4 !important;
+    }
+
+    .percent-verde {
+      background-color: #c8e6c9 !important;
+    }
+
+    .percent-vermelho {
+      background-color: #ffcdd2 !important;
+    }
+
+    .odds-justas-pares {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 15px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .linha {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .campo-com-botao {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 150px;
+    }
+
+    .input-com-botao {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .input-com-botao input {
+      flex: 1;
+    }
+
+    .btn-azul, .btn-vermelho {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .btn-azul {
+      background: linear-gradient(to right, #1e88e5, #42a5f5);
+      color: white;
+    }
+
+    .btn-azul:hover {
+      background: linear-gradient(to right, #1565c0, #1e88e5);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-vermelho {
+      background: linear-gradient(to right, #e53935, #ef5350);
+      color: white;
+    }
+
+    .btn-vermelho:hover {
+      background: linear-gradient(to right, #c62828, #e53935);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px 10px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .group, .linha {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .input-box, .campo-com-botao {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Bolsa de Apostas</h2>
+  <div class="group" style="max-width: 200px;">
+    <div class="input-box">
+      <label for="bolsa-odd">ODD</label>
+      <input id="bolsa-odd" type="text" />
+    </div>
+  </div>
+
+  <h2>Pinnacle (Match odds)</h2>
+  <div class="group">
+    <div class="input-box">
+      <label for="odd-casa"><i class="fas fa-home"></i> ODD / CASA</label>
+      <input id="odd-casa" type="text" />
+    </div>
+    <div class="input-box">
+      <label for="odd-empate"><i class="fas fa-balance-scale"></i> ODD / EMPATE</label>
+      <input id="odd-empate" type="text" />
+    </div>
+    <div class="input-box">
+      <label for="odd-fora"><i class="fas fa-plane-departure"></i> ODD / FORA</label>
+      <input id="odd-fora" type="text" />
+    </div>
+  </div>
+
+  <h2>Pinnacle (Under / Over, Sim / Não)</h2>
+  <div class="group">
+    <div class="input-box">
+      <label for="sim-menos"><i class="fas fa-arrow-down"></i> SIM / MENOS</label>
+      <input id="sim-menos" type="text" />
+    </div>
+    <div class="input-box">
+      <label for="nao-mais"><i class="fas fa-arrow-up"></i> NÃO / MAIS</label>
+      <input id="nao-mais" type="text" />
+    </div>
+  </div>
+
+  <h2>Odds Justas</h2>
+  <div class="odds-justas-pares">
+    <div class="linha">
+      <div class="campo-com-botao">
+        <label for="justa-casa"><i class="fas fa-check-circle"></i> Back casa</label>
+        <div class="input-com-botao">
+          <input id="justa-casa" type="text" readonly />
+          <button class="btn-azul">Back</button>
+        </div>
+      </div>
+      <div class="campo-com-botao">
+        <label for="justa-lay-casa"><i class="fas fa-times-circle"></i> Lay casa</label>
+        <div class="input-com-botao">
+          <input id="justa-lay-casa" type="text" readonly />
+          <button class="btn-vermelho">Lay</button>
+        </div>
+      </div>
+    </div>
+    <div class="linha">
+      <div class="campo-com-botao">
+        <label for="justa-fora"><i class="fas fa-check-circle"></i> Back fora</label>
+        <div class="input-com-botao">
+          <input id="justa-fora" type="text" readonly />
+          <button class="btn-azul">Back</button>
+        </div>
+      </div>
+      <div class="campo-com-botao">
+        <label for="justa-lay-fora"><i class="fas fa-times-circle"></i> Lay fora</label>
+        <div class="input-com-botao">
+          <input id="justa-lay-fora" type="text" readonly />
+          <button class="btn-vermelho">Lay</button>
+        </div>
+      </div>
+    </div>
+    <div class="linha">
+      <div class="campo-com-botao">
+        <label for="justa-empate"><i class="fas fa-check-circle"></i> Back empate</label>
+        <div class="input-com-botao">
+          <input id="justa-empate" type="text" readonly />
+          <button class="btn-azul">Back</button>
+        </div>
+      </div>
+      <div class="campo-com-botao">
+        <label for="justa-lay-empate"><i class="fas fa-times-circle"></i> Lay empate</label>
+        <div class="input-com-botao">
+          <input id="justa-lay-empate" type="text" readonly />
+          <button class="btn-vermelho">Lay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Odds Justas 2</h2>
+  <div class="odds-justas-pares">
+    <div class="linha">
+      <div class="campo-com-botao">
+        <label for="justa2-back-sim"><i class="fas fa-check-circle"></i> Back (sim / menos)</label>
+        <div class="input-com-botao">
+          <input id="justa2-back-sim" type="text" readonly />
+          <button class="btn-azul">Back</button>
+        </div>
+      </div>
+      <div class="campo-com-botao">
+        <label for="justa2-lay-sim"><i class="fas fa-times-circle"></i> Lay (sim / menos)</label>
+        <div class="input-com-botao">
+          <input id="justa2-lay-sim" type="text" readonly />
+          <button class="btn-vermelho">Lay</button>
+        </div>
+      </div>
+    </div>
+    <div class="linha">
+      <div class="campo-com-botao">
+        <label for="justa2-back-nao"><i class="fas fa-check-circle"></i> Back (não / mais)</label>
+        <div class="input-com-botao">
+          <input id="justa2-back-nao" type="text" readonly />
+          <button class="btn-azul">Back</button>
+        </div>
+      </div>
+      <div class="campo-com-botao">
+        <label for="justa2-lay-nao"><i class="fas fa-times-circle"></i> Lay (não / mais)</label>
+        <div class="input-com-botao">
+          <input id="justa2-lay-nao" type="text" readonly />
+          <button class="btn-vermelho">Lay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Detalhes</h2>
+  <div class="group">
+    <div class="input-box">
+      <label for="detalhes-justa"><i class="fas fa-calculator"></i> JUSTA</label>
+      <input id="detalhes-justa" type="text" readonly />
+    </div>
+    <div class="input-box">
+      <label for="detalhes-bolsa"><i class="fas fa-wallet"></i> BOLSA</label>
+      <input id="detalhes-bolsa" type="text" readonly />
+    </div>
+    <div class="input-box">
+      <label for="detalhes-percent"><i class="fas fa-percentage"></i> Margem</label>
+      <input id="detalhes-percent" type="text" readonly />
+    </div>
+    <input id="tipo-aposta" type="hidden" />
+  </div>
+
+  <script>
+    function calcularTodasOddsJustas() {
+      calcularOddsJustasMatch();
+      calcularOddsJustasUnderOver();
+      
+      // Copiar Back para Lay na seção Odds Justas
+      document.getElementById('justa-lay-casa').value = document.getElementById('justa-casa').value;
+      document.getElementById('justa-lay-fora').value = document.getElementById('justa-fora').value;
+      document.getElementById('justa-lay-empate').value = document.getElementById('justa-empate').value;
+      
+      // Copiar Back para Lay na seção Odds Justas 2
+      document.getElementById('justa2-lay-sim').value = document.getElementById('justa2-back-sim').value;
+      document.getElementById('justa2-lay-nao').value = document.getElementById('justa2-back-nao').value;
+
+      // Calcular porcentagem quando as odds justas são atualizadas
+      calcularPorcentagem();
+    }
+
+    function calcularOddsJustasMatch() {
+      const oddCasa = parseFloat(document.getElementById('odd-casa').value.replace(',', '.')) || 0;
+      const oddEmpate = parseFloat(document.getElementById('odd-empate').value.replace(',', '.')) || 0;
+      const oddFora = parseFloat(document.getElementById('odd-fora').value.replace(',', '.')) || 0;
+
+      const invCasa = oddCasa > 0 ? 100 / oddCasa : 0;
+      const invEmpate = oddEmpate > 0 ? 100 / oddEmpate : 0;
+      const invFora = oddFora > 0 ? 100 / oddFora : 0;
+      
+      const somaInversos = invCasa + invEmpate + invFora;
+      const ajuste = (somaInversos - 100) / 3;
+
+      const justaCasa = oddCasa > 0 ? 100 / (invCasa - ajuste) : 0;
+      const justaEmpate = oddEmpate > 0 ? 100 / (invEmpate - ajuste) : 0;
+      const justaFora = oddFora > 0 ? 100 / (invFora - ajuste) : 0;
+
+      document.getElementById('justa-casa').value = formatarValor(justaCasa);
+      document.getElementById('justa-empate').value = formatarValor(justaEmpate);
+      document.getElementById('justa-fora').value = formatarValor(justaFora);
+    }
+
+    function calcularOddsJustasUnderOver() {
+      const simMenos = parseFloat(document.getElementById('sim-menos').value.replace(',', '.')) || 0;
+      const naoMais = parseFloat(document.getElementById('nao-mais').value.replace(',', '.')) || 0;
+
+      const invSim = simMenos > 0 ? 100 / simMenos : 0;
+      const invNao = naoMais > 0 ? 100 / naoMais : 0;
+      
+      const somaInversos = invSim + invNao;
+      const ajuste = (somaInversos - 100) / 2;
+
+      const justaSim = simMenos > 0 ? 100 / (invSim - ajuste) : 0;
+      const justaNao = naoMais > 0 ? 100 / (invNao - ajuste) : 0;
+
+      document.getElementById('justa2-back-sim').value = formatarValor(justaSim);
+      document.getElementById('justa2-back-nao').value = formatarValor(justaNao);
+    }
+
+    function formatarValor(valor) {
+      return isNaN(valor) || valor === 0 ? '' : valor.toFixed(3).replace('.', ',');
+    }
+
+    function formatarPercentagem(valor) {
+      return isNaN(valor) || valor === 0 ? '' : valor.toFixed(2).replace('.', ',');
+    }
+
+    function calcularPorcentagem() {
+      const justa = parseFloat(document.getElementById('detalhes-justa').value.replace(',', '.')) || 0;
+      const bolsa = parseFloat(document.getElementById('detalhes-bolsa').value.replace(',', '.')) || 0;
+      const tipoAposta = document.getElementById('tipo-aposta').value;
+      let percentagem = 0;
+
+      if (justa > 0 && bolsa > 0) {
+        if (tipoAposta === 'B') {
+          percentagem = (100 / justa) - (100 / bolsa);
+        } else if (tipoAposta === 'L') {
+          percentagem = (100 / bolsa) - (100 / justa);
+        }
+      }
+
+      const percentInput = document.getElementById('detalhes-percent');
+      percentInput.value = formatarPercentagem(percentagem);
+
+      // Aplicar cores condicionais
+      percentInput.classList.remove('percent-amarelo', 'percent-verde', 'percent-vermelho');
+      if (percentagem >= 0.9 && percentagem < 1) {
+        percentInput.classList.add('percent-amarelo');
+      } else if (percentagem >= 1) {
+        percentInput.classList.add('percent-verde');
+      } else if (percentagem < 0.9) {
+        percentInput.classList.add('percent-vermelho');
+      }
+    }
+
+    document.getElementById('odd-casa').addEventListener('input', calcularTodasOddsJustas);
+    document.getElementById('odd-empate').addEventListener('input', calcularTodasOddsJustas);
+    document.getElementById('odd-fora').addEventListener('input', calcularTodasOddsJustas);
+    document.getElementById('sim-menos').addEventListener('input', calcularTodasOddsJustas);
+    document.getElementById('nao-mais').addEventListener('input', calcularTodasOddsJustas);
+
+    const bolsaOddInput = document.getElementById('bolsa-odd');
+    const detalhesBolsaInput = document.getElementById('detalhes-bolsa');
+    bolsaOddInput.addEventListener('input', function () {
+      detalhesBolsaInput.value = bolsaOddInput.value;
+      calcularPorcentagem();
+    });
+
+    const inputs = document.querySelectorAll('input[type="text"]');
+    inputs.forEach(input => {
+      input.addEventListener('input', () => {
+        input.value = input.value.replace(/[^0-9.,]/g, '');
+      });
+    });
+
+    const backButtons = document.querySelectorAll('.btn-azul');
+    const layButtons = document.querySelectorAll('.btn-vermelho');
+    const detalhesJusta = document.getElementById('detalhes-justa');
+    const tipoAposta = document.getElementById('tipo-aposta');
+
+    backButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const input = button.parentElement.querySelector('input');
+        detalhesJusta.value = input.value;
+        tipoAposta.value = 'B';
+        calcularPorcentagem();
+      });
+    });
+
+    layButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const input = button.parentElement.querySelector('input');
+        detalhesJusta.value = input.value;
+        tipoAposta.value = 'L';
+        calcularPorcentagem();
+      });
+    });
+  </script>
+</body>
+</html>
