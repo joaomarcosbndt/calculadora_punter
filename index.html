@@ -408,16 +408,13 @@
       const oddEmpate = parseFloat(document.getElementById('odd-empate').value.replace(',', '.')) || 0;
       const oddFora = parseFloat(document.getElementById('odd-fora').value.replace(',', '.')) || 0;
 
-      const invCasa = oddCasa > 0 ? 100 / oddCasa : 0;
-      const invEmpate = oddEmpate > 0 ? 100 / oddEmpate : 0;
-      const invFora = oddFora > 0 ? 100 / oddFora : 0;
+      // Calcular overround1
+      const overround1 = (100 / oddCasa) + (100 / oddEmpate) + (100 / oddFora);
       
-      const somaInversos = invCasa + invEmpate + invFora;
-      const ajuste = (somaInversos - 100) / 3;
-
-      const justaCasa = oddCasa > 0 ? 100 / (invCasa - ajuste) : 0;
-      const justaEmpate = oddEmpate > 0 ? 100 / (invEmpate - ajuste) : 0;
-      const justaFora = oddFora > 0 ? 100 / (invFora - ajuste) : 0;
+      // Calcular odds justas
+      const justaCasa = oddCasa > 0 ? 100 / ((100 / oddCasa / overround1) * 100) : 0;
+      const justaEmpate = oddEmpate > 0 ? 100 / ((100 / oddEmpate / overround1) * 100) : 0;
+      const justaFora = oddFora > 0 ? 100 / ((100 / oddFora / overround1) * 100) : 0;
 
       document.getElementById('justa-casa').value = formatarValor(justaCasa);
       document.getElementById('justa-empate').value = formatarValor(justaEmpate);
@@ -428,14 +425,12 @@
       const simMenos = parseFloat(document.getElementById('sim-menos').value.replace(',', '.')) || 0;
       const naoMais = parseFloat(document.getElementById('nao-mais').value.replace(',', '.')) || 0;
 
-      const invSim = simMenos > 0 ? 100 / simMenos : 0;
-      const invNao = naoMais > 0 ? 100 / naoMais : 0;
+      // Calcular overround2
+      const overround2 = (100 / simMenos) + (100 / naoMais);
       
-      const somaInversos = invSim + invNao;
-      const ajuste = (somaInversos - 100) / 2;
-
-      const justaSim = simMenos > 0 ? 100 / (invSim - ajuste) : 0;
-      const justaNao = naoMais > 0 ? 100 / (invNao - ajuste) : 0;
+      // Calcular odds justas
+      const justaSim = simMenos > 0 ? 100 / ((100 / simMenos / overround2) * 100) : 0;
+      const justaNao = naoMais > 0 ? 100 / ((100 / naoMais / overround2) * 100) : 0;
 
       document.getElementById('justa2-back-sim').value = formatarValor(justaSim);
       document.getElementById('justa2-back-nao').value = formatarValor(justaNao);
